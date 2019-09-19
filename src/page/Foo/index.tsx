@@ -1,4 +1,4 @@
-import React, { useState, PureComponent, Component, useMemo, memo, useCallback, useRef } from 'react';
+import React, { useState, PureComponent, Component, useMemo, memo, useCallback, useRef, useEffect } from 'react';
 import { Button } from 'antd-mobile';
 
 interface Props {
@@ -14,19 +14,12 @@ interface Props {
 //   )
 // });
 
-// class Four extends PureComponent <Props>{
-//   render() {
-//     const { props } = this;
-//     return (
-//       <h1 onClick={props.onClick}>{props.count}</h1>
-//     )
-//   }
-// }
-
-class Counter extends PureComponent <any> {
+class Counter extends PureComponent <Props> {
+  speak() {
+    console.log(`now counter is: ${this.props.count}`);
+  }
   render() {
     const { props } = this;
-    window.console.log(props.ref);
     return (
       <h1 onClick={props.onClick}>{props.count}</h1>
     )
@@ -36,7 +29,8 @@ class Counter extends PureComponent <any> {
 function Foo(props: any) {
   const [count, setCount] = useState(0);
   const [clickCount, setClickCount] = useState(0);
-  const counterRef = useRef();
+  const counterRef = useRef<any>();
+  const it = useRef<any>();
 
   const double = useMemo(() => {
     return count * 2;
@@ -46,8 +40,20 @@ function Foo(props: any) {
     console.log('Click');
     setClickCount((clickCount) => clickCount + 1);
 
-    console.log(counterRef.current);
+    counterRef.current.speak();
   }, [counterRef]);
+
+  useEffect(() => {
+    it.current = setInterval(() => {
+      setCount(count => count + 1);
+    }, 1000);
+  }, []);
+
+  useEffect(() => {
+    if(count >= 10) {
+      clearInterval(it.current);
+    }
+  })
 
   return (
     <div>
