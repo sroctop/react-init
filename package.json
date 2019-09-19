@@ -26,7 +26,13 @@
     "eject": "react-app-rewired eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "plugins": [
+      "react-hooks"
+    ],
+    "rules": {
+      "react-hooks/rules-of-hooks": "error"
+    }
   },
   "browserslist": {
     "production": [
@@ -43,6 +49,8 @@
   "devDependencies": {
     "babel-plugin-import": "^1.12.1",
     "customize-cra": "^0.7.0",
+    "eslint-plugin-react-hooks": "^2.0.1",
+    "less-loader": "^5.0.0",
     "react-app-rewired": "^2.1.3"
   }
 }
