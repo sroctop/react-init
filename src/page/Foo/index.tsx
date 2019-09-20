@@ -17,11 +17,17 @@ interface Props {
   onClick?: () => void;
 }
 
-class Counter extends PureComponent<Props> {
-  render() {
-    const { props } = this;
-    return <h1>{props.count}</h1>;
-  }
+// class Counter extends PureComponent<Props> {
+//   render() {
+//     const { props } = this;
+//     return <h1>{props.count}</h1>;
+//   }
+// }
+
+function useCounter(count: Props) {
+  return (
+    <h1>{count}</h1>
+  )
 }
 
 function useCount(defaultCount: any) {
@@ -46,13 +52,16 @@ function useCount(defaultCount: any) {
 function Foo(props: any) {
 
   const [count, setCount] = useCount(0);
+  const Counter = useCount(count);
 
   return (
     <div>
       <Button type="primary" onClick={() => setCount(count + 1)}>
         Click ({count})
       </Button>
-      <Counter count={count} />
+      {
+        Counter
+      }
     </div>
   );
 }
